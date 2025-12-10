@@ -25,3 +25,23 @@ app.use('/api', routes);
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
 });
+
+// src/app.js
+
+// const express = require('express');
+// const app = express();
+// app.use(express.json());
+
+// // Rutas
+// const userRoutes = require('./routes/users.routes');
+// const workoutRoutes = require('./routes/workouts.routes');
+// const exerciseRoutes = require('./routes/exercises.routes');
+
+// app.use('/api/users', userRoutes);
+// app.use('/api/workouts', workoutRoutes);
+// app.use('/api/exercises', exerciseRoutes);
+
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//   console.log(`Workout Tracker API corriendo en http://localhost:${PORT}`);
+// //});

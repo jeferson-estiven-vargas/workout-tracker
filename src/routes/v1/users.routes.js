@@ -2,15 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // Estado en memoria (simulación)
-let users = [
-  {
-    id: "b42f53fa-7b30-4b91-8d36-dc1c6ef27611",
-    name: "Carlos Santiz",
-    email: "carlosantiz94@example.com",
-    role: "admin",
-    createdAt: "2025-07-12T12:00:00.000Z",
-  }
-];
+
 
  //GET /api/v1/users
  router.get('/', (req, res) => {
@@ -78,5 +70,35 @@ router.put('/:id', (req, res) => {
 });
 
 
+// DELETE /users/:id
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;                            // 1
+  const index = users.findIndex(u => u.id === id);      // 2
+
+  if (index === -1) {                                   // 3
+    return res.status(404).json({ error: 'Usuario no encontrado' });
+  }
+
+  const deletedUser = users.splice(index, 1);           // 4
+  res.status(200).json({ deleted: deletedUser[0].id }); // 5
+});
+
+// GET /users?role=user&search=Carlos
+router.get('/', (req, res) => {
+  const { role, search } = req.query;  // 1
+  let result = users;                  // 2
+
+  if (role) {                          // 3
+    result = result.filter(u => u.role === role);
+  }
+
+  if (search) {                        // 4
+    result = result.filter(u =>
+      u.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+
+  res.status(200).json(result);        // 5
+});
 
  module.exports = router;
